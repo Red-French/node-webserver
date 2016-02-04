@@ -31,7 +31,7 @@ const PORT = process.env.PORT || 3000;  // if I don't pass a port, then port 300
 
 // EXPRESS SYNTAX
 app.get('/hello', (req, res) => {
-		res.write('<h1>Hello World</h1>');  // vanilla node
+		res.write('<h1>Hello World, you freak.</h1>');  // vanilla node
 
 		// query parameter handling
 		// http://localhost:3000/hello/?name=Bob
