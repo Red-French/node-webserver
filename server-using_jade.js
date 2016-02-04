@@ -20,17 +20,6 @@ app.locals.title = 'The Coolest Cal App'; // an object passed to every res.rende
 // app.use(bodyParser.urlencoded({ extended: false}));  // this is middleware for the body-parser
 	// the line above adds to the waterfall so it will parse the info from the file and then continue down the waterfall chain
 
-
-
-
-
-
-
-app.post('/profile', upload.single('avatar'), function (req, res, next) {  // accepts an uploaded file
-  // req.file is the `avatar` file
-  // req.body will hold the text fields, if there were any
-})
-
 app.get('/', (req, res) => {
 	setTimeout(() => {  // could use this to load part of the site later, i.e. had to access database first or an API, for example
 // getData.then(data => { });  // could also use a promise and callback rather than a timer
@@ -61,6 +50,7 @@ app.get('/sendphoto', (req, res) => {
 });
 
 app.post('/sendphoto', upload.single('image'), (req, res) => {
+	console.log(req.body, req.file);  // log details of uploaded image
 	res.send('<h1>Thanks for sending the photo!</h1>');
 });
 
