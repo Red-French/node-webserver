@@ -48,12 +48,11 @@ app.post('/contact', (req, res) => {
 // 	const msg = 'hello'
 // }
 
-
-// app.all('*', (req, res) => {  // 'all' means any verb (get, post, delete, etc will then run this)
-// 	res
-// 		.status(403)
-// 		.send('Access Denied');
-// });
+app.all('*', (req, res) => {  // 'all' means any verb (get, post, delete, etc will then run this)
+	res
+		.status(403)
+		.send('Access Denied');
+});
 
 
 
