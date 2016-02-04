@@ -3,11 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "dependencies": {},
-  "devDependencies": {},
+  "dependencies": {
+    "jade": "^1.11.0",
+    "node-sass-middleware": "^0.9.7"
+  },
+  "devDependencies": {
+    "bower": "^1.7.7"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "bower": "bower install"
   },
   "repository": {
     "type": "git",
