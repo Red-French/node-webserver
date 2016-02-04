@@ -4,6 +4,9 @@
 
 const app = require('express')();
 const bodyParser = require('body-parser'); // has to be installed with npm
+const upload = require('multer')({ dest: 'tmp/uploads'});  // Express for file uploading
+	// the line above uploads the file to the destination you determine
+	// here, the file is uploaded to tmp/uploads; if the directoy does not exist, it is created at time of upload
 
 // const http = require('http');
 const PORT = process.env.PORT || 3000;  // if I don't pass a port, then port 3000
@@ -14,9 +17,19 @@ app.set('view engine', 'jade'); // allows to use jade - creates an Express globa
 app.locals.title = 'The Coolest Cal App'; // an object passed to every res.render
 // app.set('title', 'The Coolest Cal App');  // this sets a global variable, but you still would need to add 'title' wherever you want it
 
-app.use(bodyParser.urlencoded({ extended: false}));  // this is middleware for the body-parser
+// app.use(bodyParser.urlencoded({ extended: false}));  // this is middleware for the body-parser
 	// the line above adds to the waterfall so it will parse the info from the file and then continue down the waterfall chain
 
+
+
+
+
+
+
+app.post('/profile', upload.single('avatar'), function (req, res, next) {  // accepts an uploaded file
+  // req.file is the `avatar` file
+  // req.body will hold the text fields, if there were any
+})
 
 app.get('/', (req, res) => {
 	setTimeout(() => {  // could use this to load part of the site later, i.e. had to access database first or an API, for example
@@ -42,6 +55,16 @@ app.post('/contact', (req, res) => {
 	const name = req.body.name;
 	res.send('<h1>Thanks for contacting us, ' + name + '</h1>');
 });
+
+app.get('/sendphoto', (req, res) => {
+	res.render('sendphoto');
+});
+
+app.post('/sendphoto', upload.single('image'), (req, res) => {
+	res.send('<h1>Thanks for sending the photo!</h1>');
+});
+
+
 
 // app.get('/hello', (req, res)) => {
 // 	const naem = req.query.name || 'World';
