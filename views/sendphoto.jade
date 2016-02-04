@@ -1,12 +1,9 @@
-doctype html
-html
-  head
-    title # {title}
-  body
-    .container
-      h1 Send us photos of you enjoying cal.js
+include ./head.jade
+  h1 Send us photos of you enjoying cal.js
 
-      form(method='post', enctype='multipart/form-data')
-        input(type='file', name='image')
-        input(type='submit', value='Share your photo!')
-        
+  form(method='post', enctype='multipart/form-data')
+    input(type='file', name='image', accept='image/*')  
+    // 'accept...' above -- only images accepted; on user's end, other file 
+    // types will be grayed out
+    
+    input(type='submit', value='Share your photo!')
