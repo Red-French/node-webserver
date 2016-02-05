@@ -5,9 +5,12 @@
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.14.2",
+    "imgur": "^0.1.7",
     "jade": "^1.11.0",
     "multer": "^1.1.0",
-    "node-sass-middleware": "^0.9.7"
+    "node-sass-middleware": "^0.9.7",
+    "path": "^0.12.7",
+    "request": "^2.69.0"
   },
   "devDependencies": {
     "bower": "^1.7.7"
