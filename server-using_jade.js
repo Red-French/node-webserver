@@ -2,14 +2,44 @@
 
 'use strict';
 
-const app = require('express')();
-const bodyParser = require('body-parser'); // has to be installed with npm
-const upload = require('multer')({ dest: 'tmp/uploads'});  // Express for file uploading
+const express = require('express'); // express() creates an Express application
+const app = express();
+
+const imgur = require('imgur');
+const path = require('path');
+const fs = require('fs');
+
+const bodyParser = require('body-parser'); // has to be installed with npm; body-parser populates
+										   // req.body with (among other things) the value of the
+										   // POST parameters.  bodyParser is a part of "Connect",
+										   // a set of middlewares for node.js. 
+// const upload = require('multer')({ dest: 'tmp/uploads'});  // Express for file uploading
 	// the line above uploads the file to the destination you determine
 	// here, the file is uploaded to tmp/uploads; if the directoy does not exist, it is created at time of upload
 
 // const http = require('http');
 const PORT = process.env.PORT || 3000;  // if I don't pass a port, then port 3000
+
+
+const multer  = require('multer')
+let storage = multer.diskStorage({
+  destination: 'tmp/uploads',  // location of local image storage
+
+  filename: function (req, file, cb) {
+  	cb(null, Date.now() + file.originalname)
+  	console.log('file', file);
+    // let date = new Date();  // get current date/time
+    // date = date.toString();  // turn date/time into string
+    // console.log('date string', date);  
+    // cb(null, req.body.name)  // save image with user-defined image
+    // cb(null, date)  // save image with current date/time
+  }
+})
+
+const upload = multer({ storage: storage })
+
+
+
 
 // JADE SETUP
 app.set('view engine', 'jade'); // allows to use jade - creates an Express global variable
@@ -19,6 +49,23 @@ app.locals.title = 'The Coolest Cal App'; // an object passed to every res.rende
 
 // app.use(bodyParser.urlencoded({ extended: false}));  // this is middleware for the body-parser
 	// the line above adds to the waterfall so it will parse the info from the file and then continue down the waterfall chain
+
+// this is a middleware function for sass
+app.use(require('node-sass-middleware')({
+  src: path.join(__dirname, 'public'),
+  dest: path.join(__dirname, 'public'),
+  indentedSyntax: true,
+  sourceMap: true
+}));
+
+app.use(express.static(path.join(__dirname, 'public')));  // sets up routes for your app (array of routes 
+														  //of all files in the public file)
+														  // express.static is the only built-in middleware 
+														  // in Express. It is based on serve-static, and 
+														  // is responsible for serving the static assets 
+														  // of an Express application.
+app.set('views', path.join(__dirname, 'views'));  // gives a path to anything in views that doesn't already 
+												  // have a path
 
 app.get('/', (req, res) => {
 	setTimeout(() => {  // could use this to load part of the site later, i.e. had to access database first or an API, for example
@@ -50,7 +97,23 @@ app.get('/sendphoto', (req, res) => {
 });
 
 app.post('/sendphoto', upload.single('image'), (req, res) => {
-	console.log(req.body, req.file);  // log details of uploaded image
+	// A single image 
+	console.log('req.file ----->', req.file);
+	imgur.uploadFile(req.file.path)
+	    .then(function (json) {
+	        console.log(json);
+	        console.log(json.data.link);
+	        	fs.unlink(req.file.path, (err) => {
+			    	if (err) throw err;
+			    	console.log('successfully deleted /tmp/uploads');
+			  });
+	    })
+	    .catch(function (err) {
+	        console.error(err.message);
+	    });
+
+
+	console.log(req.body.name, req.file.originalname);  // log details of uploaded image
 	res.send('<h1>Thanks for sending the photo!</h1>');
 });
 
@@ -75,5 +138,3 @@ app.listen(PORT, () => {
 
 // In the terminal:  PORT=5000 node --harmony_destructuring server.js
 // Now, in the browser, 'localhost:5000' will work or whatever server you set
-
-

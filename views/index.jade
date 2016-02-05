@@ -9,8 +9,7 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     body(style="padding-bottom:10rem;")
     block content
-    script(src='http://code.jquery.com/jquery.js')
-    script(src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js')
+
   body
     h1 Welcome To The #{title}
     p The date is now #{date.toLocaleDateString('en-US')}, but if you had this app, you'd have already known that. Oh, how wonderful it is... and... it'll make you rich too!
@@ -35,3 +34,7 @@ html
       li
         a(href='#') 
         span.fa.fa-lg.fa-linkedin
+
+    script(src='http://code.jquery.com/jquery.js')
+    //- script(src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js')
+    script(src='../vendor/bootstrap/dist/js/bootstrap.min.js')
