@@ -44,8 +44,8 @@ const upload = multer({ storage: storage })
 // JADE SETUP
 app.set('view engine', 'jade'); // allows to use jade - creates an Express global variable
 
-app.locals.title = 'The Coolest Cal App'; // an object passed to every res.render
-// app.set('title', 'The Coolest Cal App');  // this sets a global variable, but you still would need to add 'title' wherever you want it
+app.locals.title = 'Coolest Cal App'; // an object passed to every res.render
+// app.set('title', 'Coolest Cal App');  // this sets a global variable, but you still would need to add 'title' wherever you want it
 
 // app.use(bodyParser.urlencoded({ extended: false}));  // this is middleware for the body-parser
 	// the line above adds to the waterfall so it will parse the info from the file and then continue down the waterfall chain
