@@ -2,6 +2,8 @@
 logs
 *.log
 npm-debug.log*
+public/vendor/bootstrap
+public/vendor/jquery
 
 # Runtime data
 pids
