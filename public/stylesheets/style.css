@@ -5,7 +5,8 @@ h1 {
   margin-left: 19%; }
 
 img {
-  margin-left: 27%; }
+  margin-left: 27%;
+  border-radius: 25px; }
 
 #tease {
   margin-left: 35%; }

@@ -2,47 +2,13 @@ doctype html
 html
   head
     title= title
-    script(type='text/javascript' src='public/javascripts/jquery-min.js')
+    //- script(type='text/javascript' src='../public/vendor/jquery/dist/jquery-min.js')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     link(href='https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.5/darkly/bootstrap.css', rel='stylesheet', media='screen')
     link(rel='stylesheet', href='http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css')
-    link(rel='stylesheet', href='/stylesheets/style.css')
     body(style="padding-bottom:10rem;")
-
   body
-    h1 Welcome To The #{title}
-    block content
-    p#date The date is now #{date.toLocaleDateString('en-US')}, but if you had this app, you'd have already known that. Oh, how wonderful it is... and... it'll make you rich too!
-    img(src='http://i.kinja-img.com/gawker-media/image/upload/s--B5R7YHqO--/18r7ur3a3dn6fjpg.jpg')
-    p#tease Don't believe it?  Go to #[a(href='http://www.google.com') Google] and search about it yourself... freak.
-      #container
-        #leftCol
-          P 
-          a(href='/contact', style={color: 'white'}) Contact
-        #rightCol
-          p 
-          a(href='/sendphoto', style={color: 'white'}) Upload Photo
-      #footer
-      script.$( document ).ready(function() {
-        alert('Buy this or 1000 gnats will swarm your nose!');
-      });
-      #footer Copyright 2016
-        ul
-          li.fa.fa-google-plus
-            a(href='#')
-            i.fa.fa-facebook
-          li
-            a(href='#')
-            i.fa.fa-lg.fa-twitter
-          li
-            a(href='#')
-            i.fa.fa-lg.fa-google-plus
-          li
-            a(href='#') 
-            span.fa.fa-lg.fa-linkedin
-        p Made with:
-        br
-        #[img#jadeIMG(src='https://avatars0.githubusercontent.com/u/9338635?v=3&s=400' height='200' width='150')]
-      script(src='http://code.jquery.com/jquery.js')
-      //- script(src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js')
-      script(src='../vendor/bootstrap/dist/js/bootstrap.min.js')
+    h1 Welcome to #{title}
+    p The date is now #{date.toLocaleDateString()}
+    p Breaking news:&#32;
+      a(href=topStory.url)= topStory.title
