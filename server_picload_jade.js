@@ -12,7 +12,7 @@ const fs = require('fs');
 const bodyParser = require('body-parser'); // has to be installed with npm; body-parser populates
 										   // req.body with (among other things) the value of the
 										   // POST parameters.  bodyParser is a part of "Connect",
-										   // a set of middlewares for node.js. 
+										   // a set of middlewares for node.js.
 // const upload = require('multer')({ dest: 'tmp/uploads'});  // Express for file uploading
 	// the line above uploads the file to the destination you determine
 	// here, the file is uploaded to tmp/uploads; if the directoy does not exist, it is created at time of upload
@@ -30,8 +30,8 @@ let storage = multer.diskStorage({
   	console.log('file', file);
     // let date = new Date();  // get current date/time
     // date = date.toString();  // turn date/time into string
-    // console.log('date string', date);  
-    // cb(null, req.body.name)  // save image with user-defined image
+    // console.log('date string', date);
+    // cb(null, req.body.name)  // save image with user-defined name
     // cb(null, date)  // save image with current date/time
   }
 })
@@ -51,20 +51,20 @@ app.locals.title = 'The Coolest Cal App'; // an object passed to every res.rende
 	// the line above adds to the waterfall so it will parse the info from the file and then continue down the waterfall chain
 
 // this is a middleware function for sass
-app.use(require('node-sass-middleware')({
-  src: path.join(__dirname, 'public'),
-  dest: path.join(__dirname, 'public'),
-  indentedSyntax: true,
-  sourceMap: true
-}));
+// app.use(require('node-sass-middleware')({
+//   src: path.join(__dirname, 'public'),
+//   dest: path.join(__dirname, 'public'),
+//   indentedSyntax: true,
+//   sourceMap: true
+// }));
 
-app.use(express.static(path.join(__dirname, 'public')));  // sets up routes for your app (array of routes 
+app.use(express.static(path.join(__dirname, 'public')));  // sets up routes for your app (array of routes
 														  //of all files in the public file)
-														  // express.static is the only built-in middleware 
-														  // in Express. It is based on serve-static, and 
-														  // is responsible for serving the static assets 
+														  // express.static is the only built-in middleware
+														  // in Express. It is based on serve-static, and
+														  // is responsible for serving the static assets
 														  // of an Express application.
-app.set('views', path.join(__dirname, 'views'));  // gives a path to anything in views that doesn't already 
+app.set('views', path.join(__dirname, 'views'));  // gives a path to anything in views that doesn't already
 												  // have a path
 
 app.get('/', (req, res) => {
@@ -97,20 +97,20 @@ app.get('/sendphoto', (req, res) => {
 });
 
 app.post('/sendphoto', upload.single('image'), (req, res) => {
-	// A single image 
+	// A single image
 	console.log('req.file ----->', req.file);
-	imgur.uploadFile(req.file.path)
-	    .then(function (json) {
-	        console.log(json);
-	        console.log(json.data.link);
-	        	fs.unlink(req.file.path, (err) => {
-			    	if (err) throw err;
-			    	console.log('successfully deleted /tmp/uploads');
-			  });
-	    })
-	    .catch(function (err) {
-	        console.error(err.message);
-	    });
+	// imgur.uploadFile(req.file.path)
+	//     .then(function (json) {
+	//         console.log(json);
+	//         console.log(json.data.link);
+	//         	fs.unlink(req.file.path, (err) => {
+	// 		    	if (err) throw err;
+	// 		    	console.log('successfully deleted /tmp/uploads');
+	// 		  });
+	//     })
+	//     .catch(function (err) {
+	//         console.error(err.message);
+	//     });
 
 
 	console.log(req.body.name, req.file.originalname);  // log details of uploaded image
